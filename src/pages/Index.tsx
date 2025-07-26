@@ -105,7 +105,7 @@ const Index = () => {
                 transform transition-all duration-200
                 ${isAnimating ? 'scale-95' : 'scale-100'}
                 ${hasClicked 
-                  ? 'bg-green-600 cursor-not-allowed' 
+                  ? 'bg-cyan-700 cursor-not-allowed' 
                   : 'bg-blue-600 hover:bg-blue-700 hover:scale-105 active:scale-95'
                 }
                 shadow-lg hover:shadow-xl
