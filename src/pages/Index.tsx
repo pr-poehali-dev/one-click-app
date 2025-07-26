@@ -68,8 +68,20 @@ const Index = () => {
     <div className={`min-h-screen transition-colors duration-300 ${
       isDarkMode ? 'bg-gray-900' : 'bg-gray-50'
     }`}>
-      {/* Переключатель темы */}
-      <div className="absolute top-6 right-6">
+      {/* Переключатель темы и YouTube */}
+      <div className="absolute top-6 right-6 flex gap-3">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => window.open('https://youtube.com', '_blank')}
+          className={`transition-all duration-300 ${
+            isDarkMode 
+              ? 'bg-gray-800 border-gray-700 text-gray-100 hover:bg-gray-700' 
+              : 'bg-white border-gray-200 text-gray-900 hover:bg-gray-100'
+          }`}
+        >
+          <Icon name="Youtube" size={20} />
+        </Button>
         <Button
           variant="outline"
           size="icon"
@@ -87,12 +99,7 @@ const Index = () => {
       {/* Основной контент */}
       <div className="flex items-center justify-center min-h-screen px-4">
         <div className="text-center w-full flex flex-col items-center">
-          {/* Заголовок */}
-          <h1 className={`text-4xl font-bold mb-8 transition-colors duration-300 ${
-            isDarkMode ? 'text-white' : 'text-gray-900'
-          }`}>
-            Кликни кнопку!
-          </h1>
+
 
           {/* Главная кнопка */}
           <div className="mb-8">
