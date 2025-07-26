@@ -1,11 +1,174 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React, { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import Icon from '@/components/ui/icon';
 
 const Index = () => {
+  const [totalClicks, setTotalClicks] = useState(0);
+  const [userClickNumber, setUserClickNumber] = useState<number | null>(null);
+  const [hasClicked, setHasClicked] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Загружаем состояние при инициализации
+  useEffect(() => {
+    const savedTotalClicks = localStorage.getItem('totalClicks') || '0';
+    const savedUserClicked = localStorage.getItem('userHasClicked');
+    const savedUserNumber = localStorage.getItem('userClickNumber');
+    const savedTheme = localStorage.getItem('isDarkMode');
+    
+    setTotalClicks(parseInt(savedTotalClicks));
+    setHasClicked(savedUserClicked === 'true');
+    setUserClickNumber(savedUserNumber ? parseInt(savedUserNumber) : null);
+    setIsDarkMode(savedTheme === 'true');
+  }, []);
+
+  // Применяем тёмную тему к документу
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+
+  const handleButtonClick = () => {
+    if (hasClicked) return;
+
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 200);
+
+    const newTotalClicks = totalClicks + 1;
+    setTotalClicks(newTotalClicks);
+    setUserClickNumber(newTotalClicks);
+    setHasClicked(true);
+
+    // Сохраняем в localStorage
+    localStorage.setItem('totalClicks', newTotalClicks.toString());
+    localStorage.setItem('userHasClicked', 'true');
+    localStorage.setItem('userClickNumber', newTotalClicks.toString());
+  };
+
+  const toggleTheme = () => {
+    const newTheme = !isDarkMode;
+    setIsDarkMode(newTheme);
+    localStorage.setItem('isDarkMode', newTheme.toString());
+  };
+
+  const resetCounter = () => {
+    setTotalClicks(0);
+    setHasClicked(false);
+    setUserClickNumber(null);
+    localStorage.removeItem('totalClicks');
+    localStorage.removeItem('userHasClicked');
+    localStorage.removeItem('userClickNumber');
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
+    <div className={`min-h-screen transition-colors duration-300 ${
+      isDarkMode ? 'bg-gray-900' : 'bg-gray-50'
+    }`}>
+      {/* Переключатель темы */}
+      <div className="absolute top-6 right-6">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={toggleTheme}
+          className={`transition-all duration-300 ${
+            isDarkMode 
+              ? 'bg-gray-800 border-gray-700 text-gray-100 hover:bg-gray-700' 
+              : 'bg-white border-gray-200 text-gray-900 hover:bg-gray-100'
+          }`}
+        >
+          <Icon name={isDarkMode ? 'Sun' : 'Moon'} size={20} />
+        </Button>
+      </div>
+
+      {/* Основной контент */}
+      <div className="flex items-center justify-center min-h-screen px-4">
+        <div className="text-center max-w-md w-full">
+          {/* Заголовок */}
+          <h1 className={`text-4xl font-bold mb-8 transition-colors duration-300 ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
+            Кликни кнопку!
+          </h1>
+
+          {/* Главная кнопка */}
+          <div className="mb-8">
+            <Button
+              onClick={handleButtonClick}
+              disabled={hasClicked}
+              size="lg"
+              className={`
+                w-48 h-48 rounded-full text-xl font-semibold
+                transform transition-all duration-200
+                ${isAnimating ? 'scale-95' : 'scale-100'}
+                ${hasClicked 
+                  ? 'bg-gray-400 cursor-not-allowed' 
+                  : 'bg-blue-600 hover:bg-blue-700 hover:scale-105 active:scale-95'
+                }
+                shadow-lg hover:shadow-xl
+                disabled:hover:scale-100 disabled:hover:shadow-lg
+              `}
+            >
+              {hasClicked ? (
+                <div className="text-center">
+                  <Icon name="Check" size={32} className="mx-auto mb-2" />
+                  <div>Готово!</div>
+                </div>
+              ) : (
+                <div className="text-center">
+                  <Icon name="MousePointer" size={32} className="mx-auto mb-2" />
+                  <div>Нажми меня</div>
+                </div>
+              )}
+            </Button>
+          </div>
+
+          {/* Результаты */}
+          {hasClicked && (
+            <Card className={`p-6 animate-fade-in transition-colors duration-300 ${
+              isDarkMode 
+                ? 'bg-gray-800 border-gray-700' 
+                : 'bg-white border-gray-200'
+            }`}>
+              <div className="space-y-4">
+                <div className={`text-2xl font-bold transition-colors duration-300 ${
+                  isDarkMode ? 'text-white' : 'text-gray-900'
+                }`}>
+                  Ты #{userClickNumber}!
+                </div>
+                <div className={`text-lg transition-colors duration-300 ${
+                  isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                  Всего нажатий: <span className="font-semibold text-blue-600">{totalClicks}</span>
+                </div>
+              </div>
+            </Card>
+          )}
+
+          {/* Счётчик в реальном времени */}
+          <div className={`mt-6 text-lg transition-colors duration-300 ${
+            isDarkMode ? 'text-gray-400' : 'text-gray-500'
+          }`}>
+            Всего кликов: <span className="font-bold text-blue-600 text-xl">{totalClicks}</span>
+          </div>
+
+          {/* Кнопка сброса (скрытая) */}
+          {totalClicks > 0 && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={resetCounter}
+              className={`mt-4 text-xs transition-colors duration-300 ${
+                isDarkMode ? 'text-gray-500 hover:text-gray-300' : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              Сбросить
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
