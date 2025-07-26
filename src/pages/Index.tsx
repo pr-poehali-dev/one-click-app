@@ -101,7 +101,7 @@ const Index = () => {
               disabled={hasClicked}
               size="lg"
               className={`
-                w-64 h-32 rounded-lg text-xl font-semibold
+                w-80 h-80 rounded-lg text-xl font-semibold
                 transform transition-all duration-200
                 ${isAnimating ? 'scale-95' : 'scale-100'}
                 ${hasClicked 
@@ -110,45 +110,25 @@ const Index = () => {
                 }
                 shadow-lg hover:shadow-xl
                 disabled:hover:scale-100 disabled:hover:shadow-lg
+                flex flex-col items-center justify-center
               `}
             >
               {hasClicked ? (
-                <div className="text-center">
-                  <Icon name="Check" size={24} className="mx-auto mb-1" />
-                  <div className="text-lg">Готово!</div>
-                  <div className="text-sm opacity-75">Всего кликов: {totalClicks}</div>
+                <div className="text-center space-y-4">
+                  <Icon name="Check" size={48} className="mx-auto text-white" />
+                  <div className="text-3xl font-bold text-white">Готово!</div>
+                  <div className="text-lg text-white/80">Ты #{userClickNumber}!</div>
+                  <div className="text-base text-white/60">Всего кликов: {totalClicks}</div>
                 </div>
               ) : (
-                <div className="text-center">
-                  <Icon name="MousePointer" size={24} className="mx-auto mb-1" />
-                  <div className="text-lg">Нажми меня</div>
-                  <div className="text-sm opacity-75">Всего кликов: {totalClicks}</div>
+                <div className="text-center space-y-4">
+                  <Icon name="MousePointer" size={48} className="mx-auto text-white" />
+                  <div className="text-3xl font-bold text-white">Нажми меня</div>
+                  <div className="text-lg text-white/80">Всего кликов: {totalClicks}</div>
                 </div>
               )}
             </Button>
           </div>
-
-          {/* Результаты */}
-          {hasClicked && (
-            <Card className={`p-6 animate-fade-in transition-colors duration-300 ${
-              isDarkMode 
-                ? 'bg-gray-800 border-gray-700' 
-                : 'bg-white border-gray-200'
-            }`}>
-              <div className="space-y-4">
-                <div className={`text-2xl font-bold transition-colors duration-300 ${
-                  isDarkMode ? 'text-white' : 'text-gray-900'
-                }`}>
-                  Ты #{userClickNumber}!
-                </div>
-                <div className={`text-lg transition-colors duration-300 ${
-                  isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                }`}>
-                  Всего нажатий: <span className="font-semibold text-blue-600">{totalClicks}</span>
-                </div>
-              </div>
-            </Card>
-          )}
 
 
 
