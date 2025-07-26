@@ -121,7 +121,6 @@ const Index = () => {
               ) : (
                 <div className="text-center space-y-4">
                   <Icon name="MousePointer" size={48} className="mx-auto text-white" />
-                  <div className="text-3xl font-bold text-white">Нажми меня</div>
                   <div className="text-2xl font-bold text-white/90">Всего кликов: {totalClicks}</div>
                 </div>
               )}
@@ -130,19 +129,7 @@ const Index = () => {
 
 
 
-          {/* Кнопка сброса (скрытая) */}
-          {totalClicks > 0 && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={resetCounter}
-              className={`mt-4 text-xs transition-colors duration-300 ${
-                isDarkMode ? 'text-gray-500 hover:text-gray-300' : 'text-gray-400 hover:text-gray-600'
-              }`}
-            >
-              Сбросить
-            </Button>
-          )}
+
         </div>
       </div>
     </div>
