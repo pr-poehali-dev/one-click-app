@@ -68,20 +68,8 @@ const Index = () => {
     <div className={`min-h-screen transition-colors duration-300 ${
       isDarkMode ? 'bg-gray-900' : 'bg-gray-50'
     }`}>
-      {/* Переключатель темы и YouTube */}
-      <div className="absolute top-6 right-6 flex gap-3">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => window.open('https://youtube.com', '_blank')}
-          className={`transition-all duration-300 ${
-            isDarkMode 
-              ? 'bg-gray-800 border-gray-700 text-gray-100 hover:bg-gray-700' 
-              : 'bg-white border-gray-200 text-gray-900 hover:bg-gray-100'
-          }`}
-        >
-          <Icon name="Youtube" size={20} />
-        </Button>
+      {/* Переключатель темы */}
+      <div className="absolute top-6 right-6">
         <Button
           variant="outline"
           size="icon"
@@ -134,8 +122,28 @@ const Index = () => {
             </Button>
           </div>
 
-
-
+          {/* YouTube кнопка */}
+          <div className="mt-6">
+            <Button
+              onClick={() => window.open('https://youtube.com', '_blank')}
+              size="lg"
+              variant="outline"
+              className={`
+                px-8 py-4 text-lg font-semibold
+                border-2 transition-all duration-200
+                hover:scale-105 active:scale-95
+                ${
+                  isDarkMode 
+                    ? 'bg-red-600 border-red-500 text-white hover:bg-red-700 hover:border-red-600' 
+                    : 'bg-red-600 border-red-500 text-white hover:bg-red-700 hover:border-red-600'
+                }
+                shadow-lg hover:shadow-xl
+              `}
+            >
+              <Icon name="Youtube" size={24} className="mr-2" />
+              Мой YouTube канал
+            </Button>
+          </div>
 
         </div>
       </div>
