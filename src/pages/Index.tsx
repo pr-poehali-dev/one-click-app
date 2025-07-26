@@ -115,16 +115,14 @@ const Index = () => {
             >
               {hasClicked ? (
                 <div className="text-center space-y-4">
-                  <Icon name="Check" size={48} className="mx-auto text-white" />
-                  <div className="text-3xl font-bold text-white">Готово!</div>
-                  <div className="text-lg text-white/80">Ты #{userClickNumber}!</div>
-                  <div className="text-base text-white/60">Всего кликов: {totalClicks}</div>
+                  <div className="text-3xl font-bold text-white">Ты #{userClickNumber}!</div>
+                  <div className="text-2xl font-bold text-white">Всего кликов: {totalClicks}</div>
                 </div>
               ) : (
                 <div className="text-center space-y-4">
                   <Icon name="MousePointer" size={48} className="mx-auto text-white" />
                   <div className="text-3xl font-bold text-white">Нажми меня</div>
-                  <div className="text-lg text-white/80">Всего кликов: {totalClicks}</div>
+                  <div className="text-2xl font-bold text-white/90">Всего кликов: {totalClicks}</div>
                 </div>
               )}
             </Button>
