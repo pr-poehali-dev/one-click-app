@@ -101,7 +101,7 @@ const Index = () => {
               disabled={hasClicked}
               size="lg"
               className={`
-                w-48 h-48 rounded-full text-xl font-semibold
+                w-64 h-32 rounded-lg text-xl font-semibold
                 transform transition-all duration-200
                 ${isAnimating ? 'scale-95' : 'scale-100'}
                 ${hasClicked 
@@ -114,13 +114,15 @@ const Index = () => {
             >
               {hasClicked ? (
                 <div className="text-center">
-                  <Icon name="Check" size={32} className="mx-auto mb-2" />
-                  <div>Готово!</div>
+                  <Icon name="Check" size={24} className="mx-auto mb-1" />
+                  <div className="text-lg">Готово!</div>
+                  <div className="text-sm opacity-75">Всего кликов: {totalClicks}</div>
                 </div>
               ) : (
                 <div className="text-center">
-                  <Icon name="MousePointer" size={32} className="mx-auto mb-2" />
-                  <div>Нажми меня</div>
+                  <Icon name="MousePointer" size={24} className="mx-auto mb-1" />
+                  <div className="text-lg">Нажми меня</div>
+                  <div className="text-sm opacity-75">Всего кликов: {totalClicks}</div>
                 </div>
               )}
             </Button>
@@ -148,12 +150,7 @@ const Index = () => {
             </Card>
           )}
 
-          {/* Счётчик в реальном времени */}
-          <div className={`mt-6 text-lg transition-colors duration-300 ${
-            isDarkMode ? 'text-gray-400' : 'text-gray-500'
-          }`}>
-            Всего кликов: <span className="font-bold text-blue-600 text-xl">{totalClicks}</span>
-          </div>
+
 
           {/* Кнопка сброса (скрытая) */}
           {totalClicks > 0 && (
