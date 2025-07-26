@@ -86,7 +86,7 @@ const Index = () => {
 
       {/* Основной контент */}
       <div className="flex items-center justify-center min-h-screen px-4">
-        <div className="text-center max-w-md w-full">
+        <div className="text-center w-full flex flex-col items-center">
           {/* Заголовок */}
           <h1 className={`text-4xl font-bold mb-8 transition-colors duration-300 ${
             isDarkMode ? 'text-white' : 'text-gray-900'
@@ -105,7 +105,7 @@ const Index = () => {
                 transform transition-all duration-200
                 ${isAnimating ? 'scale-95' : 'scale-100'}
                 ${hasClicked 
-                  ? 'bg-gray-400 cursor-not-allowed' 
+                  ? 'bg-green-600 cursor-not-allowed' 
                   : 'bg-blue-600 hover:bg-blue-700 hover:scale-105 active:scale-95'
                 }
                 shadow-lg hover:shadow-xl
